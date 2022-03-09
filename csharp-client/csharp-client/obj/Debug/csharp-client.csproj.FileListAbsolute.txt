@@ -8,3 +8,13 @@ C:\Users\rodme\source\repos\csharp-client\csharp-client\obj\Debug\csharp-client.
 C:\Users\rodme\source\repos\csharp-client\csharp-client\obj\Debug\csharp-client.pdb
 C:\Users\rodme\source\repos\csharp-client\csharp-client\bin\Debug\Newtonsoft.Json.dll
 C:\Users\rodme\source\repos\csharp-client\csharp-client\bin\Debug\Newtonsoft.Json.xml
+C:\Users\rodme\source\repos\simple-client-server-app\csharp-client\csharp-client\bin\Debug\csharp-client.exe.config
+C:\Users\rodme\source\repos\simple-client-server-app\csharp-client\csharp-client\bin\Debug\csharp-client.exe
+C:\Users\rodme\source\repos\simple-client-server-app\csharp-client\csharp-client\bin\Debug\csharp-client.pdb
+C:\Users\rodme\source\repos\simple-client-server-app\csharp-client\csharp-client\bin\Debug\Newtonsoft.Json.dll
+C:\Users\rodme\source\repos\simple-client-server-app\csharp-client\csharp-client\bin\Debug\websocket-sharp.dll
+C:\Users\rodme\source\repos\simple-client-server-app\csharp-client\csharp-client\bin\Debug\Newtonsoft.Json.xml
+C:\Users\rodme\source\repos\simple-client-server-app\csharp-client\csharp-client\obj\Debug\csharp-client.csproj.AssemblyReference.cache
+C:\Users\rodme\source\repos\simple-client-server-app\csharp-client\csharp-client\obj\Debug\csharp-client.csproj.CoreCompileInputs.cache
+C:\Users\rodme\source\repos\simple-client-server-app\csharp-client\csharp-client\obj\Debug\csharp-client.exe
+C:\Users\rodme\source\repos\simple-client-server-app\csharp-client\csharp-client\obj\Debug\csharp-client.pdb

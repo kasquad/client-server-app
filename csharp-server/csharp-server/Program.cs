@@ -26,7 +26,8 @@ namespace csharp_server
         protected override void OnMessage(MessageEventArgs e)
         {
             Message msg = JsonConvert.DeserializeObject<Message>(e.Data);
-            Console.WriteLine("Received from client: " + msg.Text);
+            Console.WriteLine("Server: Received from client: " + msg.Text);
+            Send("Server:message taken {" + msg.Text+ "}");
 
 
         }

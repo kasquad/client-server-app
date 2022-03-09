@@ -27,7 +27,6 @@ namespace csharp_client
             {
                 ws.OnMessage += Ws_OnMessage;
                 ws.Connect();
-                Console.WriteLine("Connected to server");
                 string data = string.Empty;
                 while(true)
                 {
@@ -48,7 +47,7 @@ namespace csharp_client
         {
             try
             {
-                 Console.WriteLine("Server taked message");
+                 Console.WriteLine(e.Data);
             }
             catch (Exception exception)
             {
