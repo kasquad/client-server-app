@@ -5,21 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using WebSocketSharp;
 using WebSocketSharp.Server;
+using WebSocketSharp.Net;
 using Newtonsoft.Json;
 
 
 namespace csharp_server
 {
-    class Message
-    {
-        private string text;
-        public string Text { get { return text; } }
-        public Message(string text)
-        {
-            this.text = text;
-        }
-    }
-
+    
 
     public class MessageService : WebSocketBehavior
     {
@@ -28,13 +20,28 @@ namespace csharp_server
             Message msg = JsonConvert.DeserializeObject<Message>(e.Data);
             Console.WriteLine("Server: Received from client: " + msg.Text);
             Send("Server:message taken {" + msg.Text+ "}");
+        }
 
+        protected override void OnOpen()
+        {
+            string name = "testName";
+            int IdClient = Server.clientManager.AddClient(name);
+            int id = 0;
+            Initializer initializer = new Initializer(1);
+            Send(JsonConvert.SerializeObject(initializer));
+            base.OnOpen();
+        }
+        protected override void OnClose(CloseEventArgs e)
+        {
 
+            base.OnClose(e);
         }
     }
 
-    class Program
+
+    static class Server
     {
+        public static ClientManager clientManager = new ClientManager();
         static void Main(string[] args)
         {
   
@@ -43,7 +50,8 @@ namespace csharp_server
                 wssv.Start();
                 Console.WriteLine("Server started on ws://localhost:4040/send/message");
 
-                do
+            
+            do
                 {
                     Console.WriteLine("If u want to stop  type 'stop'");
                 } while (Console.ReadLine() != "stop");
@@ -52,4 +60,18 @@ namespace csharp_server
           
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+   
+       
 }

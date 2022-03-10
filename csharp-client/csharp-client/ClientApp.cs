@@ -8,25 +8,20 @@ using Newtonsoft.Json;
 
 namespace csharp_client
 {
-    class Program
+    
+    static class ClientApp
     {
-        class Message
-        {
-            private string text;
-            public string Text { get { return text; } }
-            public Message(string text)
-            {
-                this.text = text;
-            }
-        }
+        static public Client client = new Client();
 
         static void Main(string[] args)
         {
-           
             using (WebSocket ws = new WebSocket("ws://localhost:4040/send/message"))
             {
+                
                 ws.OnMessage += Ws_OnMessage;
+                ws.OnOpen += Ws_OnOpen;
                 ws.Connect();
+
                 string data = string.Empty;
                 while(true)
                 {
@@ -36,23 +31,32 @@ namespace csharp_client
                     if (data == "disconnect")
                         break;
                     Message msg = new Message(data);
+
+
+                
+
+
                     ws.Send(JsonConvert.SerializeObject(msg));
                 }
                 ws.Close();
             }
             
         }
+     
+
+        private static void Ws_OnOpen(object sender, EventArgs e)
+        {
+            
+        }
 
         private static void Ws_OnMessage(object sender, MessageEventArgs e)
         {
-            try
+            if (!ClientApp.client.IsInitialized)
             {
-                 Console.WriteLine(e.Data);
+                ClientApp.client.Init(e.Data);
             }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception);
-            }
+          
+
         }
     }
 }
