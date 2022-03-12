@@ -11,37 +11,60 @@ using Newtonsoft.Json;
 
 namespace csharp_server
 {
-    
-
+      
     public class MessageService : WebSocketBehavior
     {
         protected override void OnMessage(MessageEventArgs e)
         {
-            Message msg = JsonConvert.DeserializeObject<Message>(e.Data);
-            Console.WriteLine("Server: Received from client: " + msg.Text);
-            Send("Server:message taken {" + msg.Text+ "}");
+            Console.WriteLine("Client {0}: {1}", ID, e.Data);
         }
-
+        
         protected override void OnOpen()
         {
-            string name = "testName";
-            int IdClient = Server.clientManager.AddClient(name);
-            int id = 0;
-            Initializer initializer = new Initializer(1);
-            Send(JsonConvert.SerializeObject(initializer));
             base.OnOpen();
+            try
+            {
+                IWebSocketSession session;
+                if (!Sessions.TryGetSession(ID, out session))
+                    throw new Exception();
+                Server.clientManager.AddClient (ref session);
+                
+
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+  
         }
         protected override void OnClose(CloseEventArgs e)
         {
+            try
+            {
+                IWebSocketSession sess;
+                if (!Sessions.TryGetSession(ID, out sess))
+                    throw new Exception();
+                
+
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+
+            IWebSocketSession session;
 
             base.OnClose(e);
         }
+
     }
 
 
     static class Server
     {
         public static ClientManager clientManager = new ClientManager();
+        
         static void Main(string[] args)
         {
   
@@ -49,11 +72,12 @@ namespace csharp_server
                 wssv.AddWebSocketService<MessageService>("/send/message");
                 wssv.Start();
                 Console.WriteLine("Server started on ws://localhost:4040/send/message");
-
-            
             do
                 {
                     Console.WriteLine("If u want to stop  type 'stop'");
+                    Console.ReadKey();
+                clientManager.SendAll();
+                
                 } while (Console.ReadLine() != "stop");
 
                 wssv.Stop();
